@@ -57,4 +57,18 @@ public class LookUpController:ControllerBase
        
         return Ok(items);
     }
+    
+    [HttpGet]
+    [Route("GetMontoMinAndMax")]
+    public async Task<IActionResult> GetMontoMinAndMax(string year)
+    {
+        var items = await _lookUpService.GetMontoMinAndMax(year);
+
+        if (!string.IsNullOrEmpty(_lookUpService.LastError))
+        {
+            return StatusCode(500, _lookUpService.LastError.ToString());
+        }
+       
+        return Ok(items);
+    }
 }

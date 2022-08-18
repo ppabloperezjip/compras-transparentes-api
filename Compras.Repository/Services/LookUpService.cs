@@ -10,6 +10,7 @@ public interface ILookUpService : IServiceBase
     Task<List<LookUp>> GetAutocompletNoLicitacion(string term, int top);
     Task<List<LookUp>> GetAutocompletProveedor(string term, int top);
     Task<List<LookUp>> GetAutocompletUnits(string term, int top);
+    Task<List<LookUp>> GetMontoMinAndMax(string year);
 }
 
 public class LookUpService : ServiceBase,ILookUpService
@@ -91,6 +92,30 @@ public class LookUpService : ServiceBase,ILookUpService
         catch (Exception e)
         {
             LastError = "Problema al traer los valores del catalogo de numero de licitaciones.";
+        }
+        return new List<LookUp>();
+    }
+    
+    public async Task<List<LookUp>> GetMontoMinAndMax(string year)
+    {
+        try
+        {
+            var request = new RestRequest("LookUp/GetMontoMinAndMax", Method.Get);
+            request.AddParameter("year", year);
+
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<List<LookUp>>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+           
+
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los valores del catalogo de monto maximo y minimo.";
         }
         return new List<LookUp>();
     }
