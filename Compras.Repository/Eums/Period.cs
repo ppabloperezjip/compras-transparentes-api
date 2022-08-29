@@ -1,6 +1,6 @@
 namespace Compras.Repository.Eums;
 
-public enum Period
+public enum Trimestres
 {
     Todos,
     Trimestre1,

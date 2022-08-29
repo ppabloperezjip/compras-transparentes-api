@@ -44,15 +44,30 @@ public class ContractProcessController:ControllerBase
     public async Task<IActionResult> GetCharts(int? year,int? periodo,ChartTypes? tipoGrafica)
     {
         var items = await _contratacionesService.GetChart( 
-            year.HasValue ? year.Value : 0,
-            periodo.HasValue ? periodo.Value : 0,
-            tipoGrafica.HasValue ? tipoGrafica.Value  : ChartTypes.Procedimento);
+            year ?? 0,
+            periodo ?? 0,
+            tipoGrafica ?? ChartTypes.Procedimento);
 
         if (!string.IsNullOrEmpty(_contratacionesService.LastError))
         {
             return StatusCode(500, _contratacionesService.LastError.ToString());
         }
        
+        return Ok(items);
+    }
+    
+    [HttpPost]
+    [Route("GetSearch")]
+    public async Task<IActionResult> GetSearch(SearchFilter filter)
+    {
+        filter.TipoProcedimiento = filter.TipoProcedimiento ?? ProcedureType.Todos;
+        filter.TipoContratacion = filter.TipoContratacion ?? ContractType.Todos;
+        var items = await _contratacionesService.GetSearch(filter);
+
+        if (!string.IsNullOrEmpty(_contratacionesService.LastError))
+        {
+            return StatusCode(500, _contratacionesService.LastError.ToString());
+        }
         return Ok(items);
     }
 }

@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Compras.Repository.Eums;
 using Compras.Repository.Models;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +11,7 @@ public interface IContratacionesService : IServiceBase
     IEnumerable<string> GetYears();
     Task<Totals> GetTotals(int year, int periodo);
     Task<List<Charts>> GetChart(int year, int periodo, ChartTypes tipoGrafica);
+    Task<SearchDetails> GetSearch(SearchFilter filter);
 }
 
 public class ContratacionesService : ServiceBase,IContratacionesService
@@ -85,5 +87,30 @@ public class ContratacionesService : ServiceBase,IContratacionesService
             return null;
         }
         return new List<Charts>();
+    }
+    
+    public async Task<SearchDetails> GetSearch(SearchFilter filter)
+    {
+        try
+        {
+            var request = new RestRequest($"SearchResults/ListadoInicio?page={filter.page}&pageSize={filter.pageSize}", Method.Post);
+            string jsonString = JsonSerializer.Serialize(filter);
+            request.AddParameter("application/json", jsonString, ParameterType.RequestBody);
+            request.RequestFormat = DataFormat.Json;
+            
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<SearchDetails>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los de la busqueda de contrataciones";
+            return new SearchDetails();
+        }
+        return new SearchDetails();
     }
 }
