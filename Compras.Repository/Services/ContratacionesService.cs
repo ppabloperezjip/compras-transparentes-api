@@ -11,6 +11,7 @@ public interface IContratacionesService : IServiceBase
     IEnumerable<string> GetYears();
     Task<Totals> GetTotals(int year, int periodo);
     Task<List<Charts>> GetChart(int year, int periodo, ChartTypes tipoGrafica);
+    Task<List<Charts>> GetTopSuppliers(int year, int periodo, int tipoDistribucion, int limit = 10);
     Task<SearchDetails> GetSearch(SearchFilter filter);
 }
 
@@ -19,7 +20,7 @@ public class ContratacionesService : ServiceBase,IContratacionesService
     private RestClient _client;
     public ContratacionesService(IConfiguration configuration) : base(configuration)
     {
-        _client = new RestClient(configuration.GetConnectionString("baseUrl"));;
+        _client = new RestClient(configuration.GetConnectionString("baseUrl"));
     }
     
     public IEnumerable<string> GetYears()
@@ -70,6 +71,34 @@ public class ContratacionesService : ServiceBase,IContratacionesService
             request.AddParameter("year", year);
             request.AddParameter("periodo", periodo);
             request.AddParameter("tipoGrafica", (int)tipoGrafica);
+
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<List<Charts>>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+            
+
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los valores de la grafica de las contrataciones";
+            return null;
+        }
+        return new List<Charts>();
+    }
+    
+    public async Task<List<Charts>> GetTopSuppliers(int year, int periodo, int tipoDistribucion, int limit = 10)
+    {
+        try
+        {
+            var request = new RestRequest("Chart/GetTopSuppliers", Method.Get);
+            request.AddParameter("year", year);
+            request.AddParameter("periodo", periodo);
+            request.AddParameter("tipoDistribucion", tipoDistribucion);
+            request.AddParameter("limit", limit);
 
             request.Timeout = 5000;
             var response = await _client.ExecuteAsync<List<Charts>>(request);

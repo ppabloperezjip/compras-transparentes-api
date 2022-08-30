@@ -55,6 +55,20 @@ public class ContractProcessController:ControllerBase
        
         return Ok(items);
     }
+
+    [HttpGet]
+    [Route("GetTopSuppliers")]
+    public async Task<IActionResult> GetTopSuppliers(int? year, int? periodo, int? tipoDistribucion, int limit = 10)
+    {
+        var items = await _contratacionesService.GetTopSuppliers(year ?? DateTime.Now.Year, periodo ?? 0, tipoDistribucion ?? 0, limit);
+
+        if (!string.IsNullOrEmpty(_contratacionesService.LastError))
+        {
+            return StatusCode(500, _contratacionesService.LastError.ToString());
+        }
+
+        return Ok(items);
+    }
     
     [HttpPost]
     [Route("GetSearch")]
