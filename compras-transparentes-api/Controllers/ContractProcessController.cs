@@ -69,7 +69,21 @@ public class ContractProcessController:ControllerBase
 
         return Ok(items);
     }
-    
+
+    [HttpGet]
+    [Route("GetDetails")]
+    public async Task<IActionResult> GetDetails(int id)
+    {
+        var model = await _contratacionesService.GetDetails(id);
+
+        if (!string.IsNullOrEmpty(_contratacionesService.LastError))
+        {
+            return StatusCode(500, _contratacionesService.LastError.ToString());
+        }
+
+        return Ok(model);
+    }
+
     [HttpPost]
     [Route("GetSearch")]
     public async Task<IActionResult> GetSearch(SearchFilter filter)

@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Compras.Repository.Dtos;
 using Compras.Repository.Eums;
 using Compras.Repository.Models;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,7 @@ public interface IContratacionesService : IServiceBase
     Task<Totals> GetTotals(int year, int periodo);
     Task<List<Charts>> GetChart(int year, int periodo, ChartTypes tipoGrafica);
     Task<List<Charts>> GetTopSuppliers(int year, int periodo, int tipoDistribucion, int limit = 10);
+    Task<ContractDetailsDto> GetDetails(int id);
     Task<SearchDetails> GetSearch(SearchFilter filter);
 }
 
@@ -141,5 +143,28 @@ public class ContratacionesService : ServiceBase,IContratacionesService
             return new SearchDetails();
         }
         return new SearchDetails();
+    }
+
+    public async Task<ContractDetailsDto> GetDetails(int id)
+    {
+        try
+        {
+            var request = new RestRequest("SearchResults/GetContratacionById", Method.Get);
+            request.AddParameter("id", id);
+
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<ContractDetailsDto>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los detalles de la contratacion";
+            return null;
+        }
+        return null;
     }
 }
