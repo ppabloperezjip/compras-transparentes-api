@@ -12,7 +12,7 @@ namespace Compras.Repository.Dtos
         public string numeroLicitacion { get; set; }
         public string conceptoContrato { get; set; }
         public string estatus { get; set; }
-        public string montoContrato { get; set; }
+        public decimal? montoContrato { get; set; }
         public string anticipoContrato { get; set; }
         public string tipoContratacion { get; set; }
         public string tipoProcedimiento { get; set; }
@@ -20,7 +20,7 @@ namespace Compras.Repository.Dtos
         public string oficioAutorizacion { get; set; }
         public string licitacionTecnologia { get; set; }
         public List<Participante> participantes { get; set; }
-        public string costoBases { get; set; }
+        public decimal? costoBases { get; set; }
         public string publicacionConvocatoria { get; set; }
         public string juntaAclaraciones { get; set; }
         public string horaJuntaAclaraciones { get; set; }
