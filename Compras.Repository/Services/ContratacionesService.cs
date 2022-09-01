@@ -12,9 +12,10 @@ public interface IContratacionesService : IServiceBase
     IEnumerable<string> GetYears();
     Task<Totals> GetTotals(int year, int periodo);
     Task<List<Charts>> GetChart(int year, int periodo, ChartTypes tipoGrafica);
-    Task<List<Charts>> GetTopSuppliers(int year, int periodo, int tipoDistribucion, int limit = 10);
+    Task<List<Charts>> GetTopSuppliers(int? year, int? periodo, int tipoDistribucion, int limit = 10);
     Task<ContractDetailsDto> GetDetails(int id);
     Task<SearchDetails> GetSearch(SearchFilter filter);
+    Task<List<Charts>> GetLast12MonthsContracts();
 }
 
 public class ContratacionesService : ServiceBase,IContratacionesService
@@ -92,15 +93,43 @@ public class ContratacionesService : ServiceBase,IContratacionesService
         return new List<Charts>();
     }
     
-    public async Task<List<Charts>> GetTopSuppliers(int year, int periodo, int tipoDistribucion, int limit = 10)
+    public async Task<List<Charts>> GetTopSuppliers(int? year, int? periodo, int tipoDistribucion, int limit = 10)
     {
         try
         {
             var request = new RestRequest("Chart/GetTopSuppliers", Method.Get);
-            request.AddParameter("year", year);
-            request.AddParameter("periodo", periodo);
+            if(year is not null)
+                request.AddParameter("year", year.Value);
+            
+            if(periodo is not null)
+                request.AddParameter("periodo", periodo.Value);
+
             request.AddParameter("tipoDistribucion", tipoDistribucion);
             request.AddParameter("limit", limit);
+
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<List<Charts>>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+            
+
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los valores de la grafica de las contrataciones";
+            return null;
+        }
+        return new List<Charts>();
+    }
+    
+    public async Task<List<Charts>> GetLast12MonthsContracts()
+    {
+        try
+        {
+            var request = new RestRequest("Chart/GetLast12MonthsContracts", Method.Get);
 
             request.Timeout = 5000;
             var response = await _client.ExecuteAsync<List<Charts>>(request);

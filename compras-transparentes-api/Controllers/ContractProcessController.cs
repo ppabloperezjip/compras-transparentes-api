@@ -60,7 +60,7 @@ public class ContractProcessController:ControllerBase
     [Route("GetTopSuppliers")]
     public async Task<IActionResult> GetTopSuppliers(int? year, int? periodo, int? tipoDistribucion, int limit = 10)
     {
-        var items = await _contratacionesService.GetTopSuppliers(year ?? DateTime.Now.Year, periodo ?? 0, tipoDistribucion ?? 0, limit);
+        var items = await _contratacionesService.GetTopSuppliers(year, periodo, tipoDistribucion ?? 0, limit);
 
         if (!string.IsNullOrEmpty(_contratacionesService.LastError))
         {
@@ -75,6 +75,20 @@ public class ContractProcessController:ControllerBase
     public async Task<IActionResult> GetDetails(int id)
     {
         var model = await _contratacionesService.GetDetails(id);
+
+        if (!string.IsNullOrEmpty(_contratacionesService.LastError))
+        {
+            return StatusCode(500, _contratacionesService.LastError.ToString());
+        }
+
+        return Ok(model);
+    }
+
+    [HttpGet]
+    [Route("GetLast12MonthsContracts")]
+    public async Task<IActionResult> GetLast12MonthsContracts()
+    {
+        var model = await _contratacionesService.GetLast12MonthsContracts();
 
         if (!string.IsNullOrEmpty(_contratacionesService.LastError))
         {
