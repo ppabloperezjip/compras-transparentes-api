@@ -11,6 +11,7 @@ public interface ILookUpService : IServiceBase
     Task<List<LookUp>> GetAutocompletProveedor(string term, int top);
     Task<List<LookUp>> GetAutocompletUnits(string term, int top);
     Task<List<LookUp>> GetMontoMinAndMax(string year);
+    Task<int> GetTotalProcedimientos(string year);
 }
 
 public class LookUpService : ServiceBase,ILookUpService
@@ -118,5 +119,29 @@ public class LookUpService : ServiceBase,ILookUpService
             LastError = "Problema al traer los valores del catalogo de monto maximo y minimo.";
         }
         return new List<LookUp>();
+    }
+    
+    public async Task<int> GetTotalProcedimientos(string year)
+    {
+        try
+        {
+            var request = new RestRequest("LookUp/GetTotalProcedimientos", Method.Get);
+            request.AddParameter("year", year);
+
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<int>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+           
+
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los valores del catalogo de rango/monto total de procedimientos.";
+        }
+        return 0;
     }
 }
