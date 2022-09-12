@@ -8,6 +8,8 @@ public class Totals
     public int CantidadContratos { get; set; }
     public int FiscalYear { get; set; }
     public int Periodo { get; set; }
+    public decimal porcentajeVariacion { get; set; }
+    public int variacion { get; set; }
     
     // "monto": 530805222.13,
     // "cantidadUnidadesCompradoras": 31,

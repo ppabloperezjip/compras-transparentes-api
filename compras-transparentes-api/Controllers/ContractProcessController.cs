@@ -112,4 +112,18 @@ public class ContractProcessController:ControllerBase
         }
         return Ok(items);
     }
+
+    [HttpGet]
+    [Route("GetTotalsUA")]
+    public async Task<IActionResult> GetTotalsUA(int? year, int? periodo)
+    {
+        var model = await _contratacionesService.GetTotalsUA(year ?? DateTime.Now.Year, periodo ?? 0);
+
+        if (!string.IsNullOrEmpty(_contratacionesService.LastError))
+        {
+            return StatusCode(500, _contratacionesService.LastError.ToString());
+        }
+
+        return Ok(model);
+    }
 }

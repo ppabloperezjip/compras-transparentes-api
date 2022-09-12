@@ -16,6 +16,7 @@ public interface IContratacionesService : IServiceBase
     Task<ContractDetailsDto> GetDetails(int id);
     Task<SearchDetails> GetSearch(SearchFilter filter);
     Task<List<Charts>> GetLast12MonthsContracts();
+    Task<Totals> GetTotalsUA(int year, int periodo);
 }
 
 public class ContratacionesService : ServiceBase,IContratacionesService
@@ -45,6 +46,32 @@ public class ContratacionesService : ServiceBase,IContratacionesService
         try
         {
             var request = new RestRequest("Dashboard", Method.Get);
+            request.AddParameter("year", year);
+            request.AddParameter("periodo", periodo);
+
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<Totals>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los totales de las contrataciones";
+
+        }
+
+        return new Totals();
+    }
+    
+    public async Task<Totals> GetTotalsUA(int year,int periodo)
+    {
+        try
+        {
+            var request = new RestRequest("Dashboard/GetDashboardUC", Method.Get);
             request.AddParameter("year", year);
             request.AddParameter("periodo", periodo);
 
