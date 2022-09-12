@@ -7,6 +7,7 @@ public class SearchDetails
     public int cantidadContratos { get; set; }
     public int paginaActual { get; set; }
     public int cantidadPaginas { get; set; }
+    public string montoTotal { get; set; }
     public List<ContractDto> contratos { get; set; }
     
 }

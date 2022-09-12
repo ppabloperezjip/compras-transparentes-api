@@ -71,4 +71,17 @@ public class LookUpController:ControllerBase
        
         return Ok(items);
     }
+    
+    [HttpGet]
+    [Route("GetTotalProcedimientos")]
+    public async Task<IActionResult> GetTotalProcedimientos(string year)
+    {
+        var items = await _lookUpService.GetTotalProcedimientos(year);
+
+        if (!string.IsNullOrEmpty(_lookUpService.LastError))
+        {
+            return StatusCode(500, _lookUpService.LastError.ToString());
+        }
+        return Ok(items);
+    }
 }

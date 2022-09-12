@@ -45,6 +45,9 @@ namespace Compras.Repository.Dtos
         public int proveedorId { get; set; }
         public string participanteNombre { get; set; }
         public bool esGanador { get; set; }
+        public string montoContrato { get; set; }
+        
+        
     }
 
 }
