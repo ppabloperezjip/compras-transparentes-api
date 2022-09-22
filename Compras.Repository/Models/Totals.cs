@@ -9,12 +9,25 @@ public class Totals
     public int FiscalYear { get; set; }
     public int Periodo { get; set; }
     public decimal porcentajeVariacion { get; set; }
+    public decimal porcentajePublicasYSimplificadas { get; set; }
+    public int variacionPublicasYSimplificadas { get; set; }
+    public decimal porcentajeAdjudicacionesDirectas { get; set; }
+    public int variacionAdjudicacionesDirectas { get; set; }
     public int variacion { get; set; }
-    
-    // "monto": 530805222.13,
-    // "cantidadUnidadesCompradoras": 31,
-    // "cantidadProveedores": 168,
-    // "cantidadContratos": 242,
-    // "fiscalYear": "2022",
-    // "periodo": 2
+    public int cantidadPublicasYSimplificadas { get; set; }
+    public int cantidadAdjudicacionesDirectas { get; set; }
+
+
+    /*
+    "cantidadPublicasYSimplificadas": 517,
+    "cantidadAdjudicacionesDirectas": 675,
+    "porcentajeVariacion": 15.52,
+    "variacion": 2,
+    "porcentajePublicasYSimplificadas": 16.07,
+    "variacionPublicasYSimplificadas": 2,
+    "porcentajeAdjudicacionesDirectas": 15.09,
+    "variacionAdjudicacionesDirectas": 2,
+    "fiscalYear": "2020",
+    "periodo": 0
+     */
 }
