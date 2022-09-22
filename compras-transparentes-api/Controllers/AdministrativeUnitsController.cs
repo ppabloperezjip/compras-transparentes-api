@@ -35,4 +35,28 @@ public class AdministrativeUnitsController:ControllerBase
        
         return Ok(items);
     }
+    
+    [HttpPost]
+    [Route("GetSearchUnit")]
+    public async Task<IActionResult> GetSearchUnit(SearchFilter filter)
+    {
+        filter.TipoProcedimiento = filter.TipoProcedimiento ?? ProcedureType.Todos;
+        filter.TipoContratacion = filter.TipoContratacion ?? ContractType.Todos;
+        var items = await _administrativeUnitsService.GetSearch(filter);
+
+        if (!string.IsNullOrEmpty(_administrativeUnitsService.LastError))
+        {
+            return StatusCode(500, _administrativeUnitsService.LastError.ToString());
+        }
+
+        var model = new
+        {
+            total= items.cantidadUnidades,
+            paginaActual = items.paginaActual,
+            cantidadPaginas = items.cantidadPaginas,
+            montoTotal = items.montoTotal,
+            data = items.Unidades,
+        };
+        return Ok(model);
+    }
 }

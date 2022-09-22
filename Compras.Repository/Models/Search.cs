@@ -1,4 +1,8 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 using Compras.Repository.Eums;
+using Newtonsoft.Json;
 
 namespace Compras.Repository.Models;
 
@@ -10,6 +14,15 @@ public class SearchDetails
     public string montoTotal { get; set; }
     public List<ContractDto> contratos { get; set; }
     
+}
+
+public class SearchDetailsUnit
+{
+    public int cantidadUnidades { get; set; }
+    public int paginaActual { get; set; }
+    public int cantidadPaginas { get; set; }
+    public string montoTotal { get; set; }
+    public List<UnitDto> Unidades { get; set; }
 }
 
 public class SearchFilter
@@ -29,6 +42,8 @@ public class SearchFilter
     public string FechaFinal { get; set; } //2022-12-31
     public double MontoMinimo { get; set; } 
     public double MontoMaximo { get; set; } 
+    public double MinimoContrato { get; set; } 
+    public double MaximoContrato { get; set; } 
     public string OrderColumn { get; set; } 
     public string OrderOrientation { get; set; } 
     public int page { get; set; }
