@@ -110,7 +110,16 @@ public class ContractProcessController:ControllerBase
         {
             return StatusCode(500, _contratacionesService.LastError.ToString());
         }
-        return Ok(items);
+
+        var model = new
+        {
+            total= items.cantidadContratos,
+            paginaActual = items.paginaActual,
+            cantidadPaginas = items.cantidadPaginas,
+            montoTotal = items.montoTotal,
+            data = items.contratos,
+        };
+        return Ok(model);
     }
 
     [HttpGet]
