@@ -14,6 +14,7 @@ builder.Services.AddTransient<IRepositoryBase, RepositoryBase>();
 builder.Services.AddTransient<IServiceBase, ServiceBase>();
 builder.Services.AddTransient<IContratacionesService, ContratacionesService>();
 builder.Services.AddTransient<IAdministrativeUnitsService, AdministrativeUnitsService>();
+builder.Services.AddTransient<ISuppliersService, SuppliersService>();
 builder.Services.AddTransient<ILookUpService, LookUpService>();
 var app = builder.Build();
 
