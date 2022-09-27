@@ -10,6 +10,8 @@ public interface IAdministrativeUnitsService : IServiceBase
 {
     Task<List<Charts>> GetTopUnits(int year,int periodo,DistributionTypes tipoDistribucion,int limit);
     Task<SearchDetailsUnit> GetSearch(SearchFilter filter);
+    Task<TotalsByAU> GetTotals(int organismoId, int year, int periodo);
+    Task<List<Charts>> GetChart(int organismoId, int year, int periodo, int tipoGrafica);
 }
 
 public class AdministrativeUnitsService : ServiceBase,IAdministrativeUnitsService
@@ -70,5 +72,54 @@ public class AdministrativeUnitsService : ServiceBase,IAdministrativeUnitsServic
             return new SearchDetailsUnit();
         }
         return new SearchDetailsUnit();
+    }
+
+    public async Task<TotalsByAU> GetTotals(int organismoId, int year, int periodo)
+    {
+        try
+        {
+            var request = new RestRequest("Dashboard/GetDashboardUCDetails", Method.Get);
+            request.AddParameter("organismoId", organismoId);
+            request.AddParameter("year", year);
+            request.AddParameter("periodo", periodo);
+
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<TotalsByAU>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los valores de los totales por unidad administrativa.";
+        }
+        return new TotalsByAU();
+    }
+
+    public async Task<List<Charts>> GetChart(int organismoId, int year, int periodo, int tipoGrafica)
+    {
+        try
+        {
+            var request = new RestRequest("Chart/GetUnitsDashboardChart", Method.Get);
+            request.AddParameter("organismoId", organismoId);
+            request.AddParameter("year", year);
+            request.AddParameter("periodo", periodo);
+            request.AddParameter("tipoGrafica", tipoGrafica);
+
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<List<Charts>>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los valores de los totales por unidad administrativa.";
+        }
+        return new List<Charts>();
     }
 }

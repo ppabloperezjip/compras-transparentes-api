@@ -15,19 +15,7 @@ public class Totals
     public int variacionAdjudicacionesDirectas { get; set; }
     public int variacion { get; set; }
     public int cantidadPublicasYSimplificadas { get; set; }
+    public int cantidadLPyLSAnterior { get; set; }
     public int cantidadAdjudicacionesDirectas { get; set; }
-
-
-    /*
-    "cantidadPublicasYSimplificadas": 517,
-    "cantidadAdjudicacionesDirectas": 675,
-    "porcentajeVariacion": 15.52,
-    "variacion": 2,
-    "porcentajePublicasYSimplificadas": 16.07,
-    "variacionPublicasYSimplificadas": 2,
-    "porcentajeAdjudicacionesDirectas": 15.09,
-    "variacionAdjudicacionesDirectas": 2,
-    "fiscalYear": "2020",
-    "periodo": 0
-     */
+    public int cantidadADAnterior { get; set; }
 }

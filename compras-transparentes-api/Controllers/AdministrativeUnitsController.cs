@@ -59,4 +59,32 @@ public class AdministrativeUnitsController:ControllerBase
         };
         return Ok(model);
     }
+
+    [HttpGet]
+    [Route("GetTotals")]
+    public async Task<IActionResult> GetTotals(int organismoId, int year, int periodo)
+    {
+        var items = await _administrativeUnitsService.GetTotals(organismoId,year, periodo);
+
+        if (!string.IsNullOrEmpty(_administrativeUnitsService.LastError))
+        {
+            return StatusCode(500, _administrativeUnitsService.LastError);
+        }
+
+        return Ok(items);
+    }
+
+    [HttpGet]
+    [Route("GetChart")]
+    public async Task<IActionResult> GetChart(int organismoId, int year, int periodo, int tipoGrafica)
+    {
+        var items = await _administrativeUnitsService.GetChart(organismoId, year, periodo, tipoGrafica);
+
+        if (!string.IsNullOrEmpty(_administrativeUnitsService.LastError))
+        {
+            return StatusCode(500, _administrativeUnitsService.LastError);
+        }
+
+        return Ok(items);
+    }
 }
