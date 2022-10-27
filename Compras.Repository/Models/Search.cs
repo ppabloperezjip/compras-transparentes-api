@@ -42,6 +42,7 @@ public class SearchLicitacion
 }
 
 
+
 public class SearchFilter
 {
     public string ConceptoContrato { get; set; }
