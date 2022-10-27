@@ -15,7 +15,7 @@ public interface IContratacionesService : IServiceBase
     Task<List<Charts>> GetTopSuppliers(int? year, int? periodo, int tipoDistribucion, int limit = 10);
     Task<ContractDetailsDto> GetDetails(int id);
     Task<SearchDetails> GetSearch(SearchFilter filter);
-    Task<List<Charts>> GetLast12MonthsContracts();
+    Task<List<Charts>> GetLast12MonthsContracts(int year, int periodo);
     Task<Totals> GetTotalsUA(int year, int periodo);
 }
 
@@ -152,11 +152,13 @@ public class ContratacionesService : ServiceBase,IContratacionesService
         return new List<Charts>();
     }
     
-    public async Task<List<Charts>> GetLast12MonthsContracts()
+    public async Task<List<Charts>> GetLast12MonthsContracts(int year, int periodo)
     {
         try
         {
             var request = new RestRequest("Chart/GetLast12MonthsContracts", Method.Get);
+            request.AddParameter("year", year);
+            request.AddParameter("periodo", periodo);
 
             request.Timeout = 5000;
             var response = await _client.ExecuteAsync<List<Charts>>(request);
