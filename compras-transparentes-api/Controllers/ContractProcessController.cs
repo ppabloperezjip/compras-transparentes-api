@@ -86,9 +86,9 @@ public class ContractProcessController:ControllerBase
 
     [HttpGet]
     [Route("GetLast12MonthsContracts")]
-    public async Task<IActionResult> GetLast12MonthsContracts()
+    public async Task<IActionResult> GetLast12MonthsContracts(int year, int periodo)
     {
-        var model = await _contratacionesService.GetLast12MonthsContracts();
+        var model = await _contratacionesService.GetLast12MonthsContracts(year, periodo);
 
         if (!string.IsNullOrEmpty(_contratacionesService.LastError))
         {
