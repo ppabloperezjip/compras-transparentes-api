@@ -16,21 +16,21 @@ public class LicitacionesController:ControllerBase
     {
         _licitacionesService = licitacionesService;
     }
-    
-    // [HttpGet]
-    // [Route("GetTotals")]
-    // public async Task<IActionResult> GetTotals( int year, int periodo)
-    // {
-    //     var items = await _suppliersService.GetTotals(year, periodo);
-    //
-    //     if (!string.IsNullOrEmpty(_suppliersService.LastError))
-    //     {
-    //         return StatusCode(500, _suppliersService.LastError);
-    //     }
-    //
-    //     return Ok(items);
-    // }
-    
+
+    [HttpGet]
+    [Route("GetTotals")]
+    public async Task<IActionResult> GetTotals(int year, int periodo)
+    {
+        var items = await _licitacionesService.GetTotals(year, periodo);
+
+        if (!string.IsNullOrEmpty(_licitacionesService.LastError))
+        {
+            return StatusCode(500, _licitacionesService.LastError);
+        }
+
+        return Ok(items);
+    }
+
     [HttpPost]
     [Route("GetSearch")]
     public async Task<IActionResult> GetSearch(SearchFilter filter)
