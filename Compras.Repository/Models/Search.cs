@@ -32,6 +32,15 @@ public class SearchSuppliers
     public List<SupplierDto> proveedores { get; set; }
 }
 
+public class SearchLicitacion
+{
+    public int cantidadLicitaciones { get; set; }
+    public int paginaActual { get; set; }
+    public int cantidadPaginas { get; set; }
+    public string montoTotal { get; set; }
+    public List<LicitacionDto> licitaciones { get; set; }
+}
+
 
 public class SearchFilter
 {
