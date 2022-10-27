@@ -30,4 +30,28 @@ public class SuppliersController:ControllerBase
 
         return Ok(items);
     }
+    
+    [HttpPost]
+    [Route("GetSearch")]
+    public async Task<IActionResult> GetSearch(SearchFilter filter)
+    {
+        filter.TipoProcedimiento = filter.TipoProcedimiento ?? ProcedureType.Todos;
+        filter.TipoContratacion = filter.TipoContratacion ?? ContractType.Todos;
+        var items = await _suppliersService.GetSearch(filter);
+
+        if (!string.IsNullOrEmpty(_suppliersService.LastError))
+        {
+            return StatusCode(500, _suppliersService.LastError.ToString());
+        }
+
+        var model = new
+        {
+            total= items.cantidadProveedores,
+            paginaActual = items.paginaActual,
+            cantidadPaginas = items.cantidadPaginas,
+            montoTotal = items.montoTotal,
+            data = items.proveedores,
+        };
+        return Ok(model);
+    }
 }

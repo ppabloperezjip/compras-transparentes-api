@@ -9,6 +9,7 @@ namespace Compras.Repository.Services;
 public interface ISuppliersService : IServiceBase
 {
     Task<TotalsBySuppliers> GetTotals(int year, int periodo);
+    Task<SearchSuppliers> GetSearch(SearchFilter filter);
 }
 
 public class SuppliersService : ServiceBase,ISuppliersService
@@ -40,5 +41,33 @@ public class SuppliersService : ServiceBase,ISuppliersService
             LastError = "Problema al traer los valores de los totales por proveedor.";
         }
         return new TotalsBySuppliers();
+    }
+    
+    public async Task<SearchSuppliers> GetSearch(SearchFilter filter)
+    {
+        try
+        {
+            var parm = filter.page.HasValue && filter.pageSize.HasValue
+                ? $"?page={filter.page.Value}&pageSize={filter.pageSize.Value}"
+                : "";
+            var request = new RestRequest($"SearchResults/ListadoProveedores{parm}", Method.Post);
+            string jsonString = JsonSerializer.Serialize(filter);
+            request.AddParameter("application/json", jsonString, ParameterType.RequestBody);
+            request.RequestFormat = DataFormat.Json;
+            
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<SearchSuppliers>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los de la busqueda de Proveedores";
+            return new SearchSuppliers();
+        }
+        return new SearchSuppliers();
     }
 }

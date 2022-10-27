@@ -15,7 +15,6 @@ public class SearchDetails
     public List<ContractDto> contratos { get; set; }
     
 }
-
 public class SearchDetailsUnit
 {
     public int cantidadUnidades { get; set; }
@@ -24,6 +23,15 @@ public class SearchDetailsUnit
     public string montoTotal { get; set; }
     public List<UnitDto> Unidades { get; set; }
 }
+public class SearchSuppliers
+{
+    public int cantidadProveedores { get; set; }
+    public int paginaActual { get; set; }
+    public int cantidadPaginas { get; set; }
+    public string montoTotal { get; set; }
+    public List<SupplierDto> proveedores { get; set; }
+}
+
 
 public class SearchFilter
 {
@@ -46,7 +54,7 @@ public class SearchFilter
     public double MaximoContrato { get; set; } 
     public string OrderColumn { get; set; } 
     public string OrderOrientation { get; set; } 
-    public int page { get; set; }
-    public int pageSize { get; set; } 
+    public int? page { get; set; }
+    public int? pageSize { get; set; } 
     
 }

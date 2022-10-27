@@ -182,7 +182,10 @@ public class ContratacionesService : ServiceBase,IContratacionesService
     {
         try
         {
-            var request = new RestRequest($"SearchResults/ListadoInicio?page={filter.page}&pageSize={filter.pageSize}", Method.Post);
+            var parm = filter.page.HasValue && filter.pageSize.HasValue
+                ? $"?page={filter.page.Value}&pageSize={filter.pageSize.Value}"
+                : "";
+            var request = new RestRequest($"SearchResults/ListadoInicio{parm}", Method.Post);
             string jsonString = JsonSerializer.Serialize(filter);
             request.AddParameter("application/json", jsonString, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
