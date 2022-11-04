@@ -10,4 +10,7 @@ public class TotalsLicitaciones
     public int cantidadCerradas { get; set; }
     public int cantidadDesiertas { get; set; }
     public int cantidadCanceladasCerradasDesiertas { get; set; }
+
+    public int total => cantidadCapturadas + cantidadVigentes + cantidadEnSeguimiento + cantidadAdjudicadas + cantidadCanceladas + cantidadCerradas + cantidadDesiertas;
+
 }
