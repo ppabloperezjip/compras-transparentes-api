@@ -38,8 +38,9 @@ namespace Compras.Repository.Dtos
         public string conveniosModificatorios { get; set; }
         public string clasificacion { get; set; }
         public string urlAnexos { get; set; }
+        public string organismoId { get; set; }
     }
-
+    
     public class Participante
     {
         public int proveedorId { get; set; }

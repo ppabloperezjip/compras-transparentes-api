@@ -41,8 +41,6 @@ public class SearchLicitacion
     public List<LicitacionDto> licitaciones { get; set; }
 }
 
-
-
 public class SearchFilter
 {
     public string ConceptoContrato { get; set; }
