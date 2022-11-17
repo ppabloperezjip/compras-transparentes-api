@@ -211,7 +211,7 @@ public class ContratacionesService : ServiceBase,IContratacionesService
     {
         try
         {
-            var request = new RestRequest("SearchResults/GetContratacionById", Method.Get);
+            var request = new RestRequest("SearchResults/GetLicitacionById", Method.Get);
             request.AddParameter("id", id);
 
             request.Timeout = 5000;

@@ -10,11 +10,8 @@
     <ItemGroup>
         <PackageReference Include="Dapper" Version="2.0.123" />
         <PackageReference Include="EntityFramework" Version="6.4.4" />
+        <PackageReference Include="Razor.Templating.Core" Version="1.8.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Modelo" />
     </ItemGroup>
 
     <ItemGroup>

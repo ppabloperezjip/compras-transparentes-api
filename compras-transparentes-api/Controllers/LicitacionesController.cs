@@ -37,6 +37,7 @@ public class LicitacionesController:ControllerBase
     {
         filter.TipoProcedimiento = filter.TipoProcedimiento ?? ProcedureType.Todos;
         filter.TipoContratacion = filter.TipoContratacion ?? ContractType.Todos;
+        filter.EstatusLicitacion = filter.EstatusLicitacion ?? EstatusLicitacion.Todos;
         var items = await _licitacionesService.GetSearch(filter);
 
         if (!string.IsNullOrEmpty(_licitacionesService.LastError))

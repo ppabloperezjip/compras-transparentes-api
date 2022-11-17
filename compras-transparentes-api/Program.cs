@@ -1,4 +1,6 @@
+using System.Configuration;
 using Compras.Repository;
+using Compras.Repository.HelperClasses;
 using Compras.Repository.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,8 @@ builder.Services.AddTransient<IAdministrativeUnitsService, AdministrativeUnitsSe
 builder.Services.AddTransient<ISuppliersService, SuppliersService>();
 builder.Services.AddTransient<ILicitacionesService, LicitacionesService>();
 builder.Services.AddTransient<ILookUpService, LookUpService>();
+builder.Services.AddTransient<IEmailsService, EmailsService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

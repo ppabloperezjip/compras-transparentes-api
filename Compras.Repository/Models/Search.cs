@@ -62,6 +62,7 @@ public class SearchFilter
     public double MaximoContrato { get; set; } 
     public string OrderColumn { get; set; } 
     public string OrderOrientation { get; set; } 
+    public EstatusLicitacion? EstatusLicitacion { get; set; }
     public int? page { get; set; }
     public int? pageSize { get; set; } 
     
