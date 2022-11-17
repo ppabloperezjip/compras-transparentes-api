@@ -135,4 +135,18 @@ public class ContractProcessController:ControllerBase
 
         return Ok(model);
     }
+
+    [HttpGet]
+    [Route("GetTotalsOpenData")]
+    public async Task<IActionResult> GetTotalsOpenData()
+    {
+        var model = await _contratacionesService.GetTotalsOpenData();
+
+        if (!string.IsNullOrEmpty(_contratacionesService.LastError))
+        {
+            return StatusCode(500, _contratacionesService.LastError.ToString());
+        }
+
+        return Ok(model);
+    }
 }

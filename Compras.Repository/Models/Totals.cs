@@ -19,3 +19,11 @@ public class Totals
     public int cantidadAdjudicacionesDirectas { get; set; }
     public int cantidadADAnterior { get; set; }
 }
+
+
+public class TotalsOpenData
+{
+    public int cantidadProcedimientos { get; set; }
+    public int cantidadProveedoresParticipantes { get; set; }
+    public int cantidadAdjudicadas { get; set; }
+}

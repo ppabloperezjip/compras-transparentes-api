@@ -17,6 +17,7 @@ public interface IContratacionesService : IServiceBase
     Task<SearchDetails> GetSearch(SearchFilter filter);
     Task<List<Charts>> GetLast12MonthsContracts(int year, int periodo);
     Task<Totals> GetTotalsUA(int year, int periodo);
+    Task<TotalsOpenData> GetTotalsOpenData();
 }
 
 public class ContratacionesService : ServiceBase,IContratacionesService
@@ -224,6 +225,28 @@ public class ContratacionesService : ServiceBase,IContratacionesService
         catch (Exception e)
         {
             LastError = "Problema al traer los detalles de la contratacion";
+            return null;
+        }
+        return null;
+    }
+
+    public async Task<TotalsOpenData> GetTotalsOpenData()
+    {
+        try
+        {
+            var request = new RestRequest("Dashboard/OpenDataDashboard", Method.Get);
+
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<TotalsOpenData>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los totales de datos abiertos";
             return null;
         }
         return null;
