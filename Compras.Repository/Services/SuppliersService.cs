@@ -8,6 +8,7 @@ namespace Compras.Repository.Services;
 
 public interface ISuppliersService : IServiceBase
 {
+    Task<TotalBySupplierDetails> GetTotalsBySupplier(int proveedorId, int year, int periodo);
     Task<TotalsBySuppliers> GetTotals(int year, int periodo);
     Task<SearchSuppliers> GetSearch(SearchFilter filter);
 }
@@ -18,6 +19,30 @@ public class SuppliersService : ServiceBase,ISuppliersService
     public SuppliersService(IConfiguration configuration ) : base(configuration)
     {
         _client = new RestClient(configuration.GetConnectionString("baseUrl"));;
+    }
+    
+    public async Task<TotalBySupplierDetails> GetTotalsBySupplier(int proveedorId, int year, int periodo)
+    {
+        try
+        {
+            var request = new RestRequest("Dashboard/GetDashboardSupplierDetails", Method.Get);
+            request.AddParameter("proveedorId", proveedorId);
+            request.AddParameter("year", year);
+            request.AddParameter("periodo", periodo);
+
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<TotalBySupplierDetails>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los valores de los totales por proveedor.";
+        }
+        return new TotalBySupplierDetails();
     }
     
     public async Task<TotalsBySuppliers> GetTotals(int year, int periodo)

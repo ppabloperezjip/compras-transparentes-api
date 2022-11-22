@@ -9,3 +9,14 @@ public class TotalsBySuppliers
     public decimal porcentajeParticipantes { get; set; }
     public int totalParticipantesAnteriores { get; set; }
 }
+
+
+
+public class TotalBySupplierDetails
+{
+    public int cantidadContratos { get; set; }
+    public float montoTotal { get; set; }
+    public float montoMinimo { get; set; }
+    public float montoPromedio { get; set; }
+    public float montoMaximo { get; set; }
+}

@@ -31,6 +31,20 @@ public class SuppliersController:ControllerBase
         return Ok(items);
     }
     
+    [HttpGet]
+    [Route("GetTotalsBySupplier")]
+    public async Task<IActionResult> GetTotalsBySupplier(int proveedorId, int year, int periodo)
+    {
+        var items = await _suppliersService.GetTotalsBySupplier(proveedorId, year, periodo);
+
+        if (!string.IsNullOrEmpty(_suppliersService.LastError))
+        {
+            return StatusCode(500, _suppliersService.LastError);
+        }
+
+        return Ok(items);
+    }
+    
     [HttpPost]
     [Route("GetSearch")]
     public async Task<IActionResult> GetSearch(SearchFilter filter)
