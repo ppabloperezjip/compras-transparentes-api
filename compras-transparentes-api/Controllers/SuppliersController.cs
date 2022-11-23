@@ -44,7 +44,21 @@ public class SuppliersController:ControllerBase
 
         return Ok(items);
     }
-    
+
+    [HttpGet]
+    [Route("GetChart")]
+    public async Task<IActionResult> GetChart(int proveedorId, int year, int periodo, int tipoGrafica)
+    {
+        var items = await _suppliersService.GetChart(proveedorId, year, periodo, tipoGrafica);
+
+        if (!string.IsNullOrEmpty(_suppliersService.LastError))
+        {
+            return StatusCode(500, _suppliersService.LastError);
+        }
+
+        return Ok(items);
+    }
+
     [HttpPost]
     [Route("GetSearch")]
     public async Task<IActionResult> GetSearch(SearchFilter filter)

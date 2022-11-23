@@ -11,6 +11,7 @@ public interface ISuppliersService : IServiceBase
     Task<TotalBySupplierDetails> GetTotalsBySupplier(int proveedorId, int year, int periodo);
     Task<TotalsBySuppliers> GetTotals(int year, int periodo);
     Task<SearchSuppliers> GetSearch(SearchFilter filter);
+    Task<List<Charts>> GetChart(int proveedorId, int year, int periodo, int tipoGrafica);
 }
 
 public class SuppliersService : ServiceBase,ISuppliersService
@@ -94,5 +95,30 @@ public class SuppliersService : ServiceBase,ISuppliersService
             return new SearchSuppliers();
         }
         return new SearchSuppliers();
+    }
+
+    public async Task<List<Charts>> GetChart(int proveedorId, int year, int periodo, int tipoGrafica)
+    {
+        try
+        {
+            var request = new RestRequest("Chart/GetSupplierDashboardChart", Method.Get);
+            request.AddParameter("proveedorId", proveedorId);
+            request.AddParameter("year", year);
+            request.AddParameter("periodo", periodo);
+            request.AddParameter("tipoGrafica", tipoGrafica);
+
+            request.Timeout = 5000;
+            var response = await _client.ExecuteAsync<List<Charts>>(request);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return response.Data;
+            }
+        }
+        catch (Exception e)
+        {
+            LastError = "Problema al traer los valores de los totales por unidad administrativa.";
+        }
+        return new List<Charts>();
     }
 }
