@@ -50,7 +50,7 @@ public class ContratacionesService : ServiceBase,IContratacionesService
             request.AddParameter("year", year);
             request.AddParameter("periodo", periodo);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<Totals>(request);
 
             if (response.IsSuccessStatusCode)
@@ -76,7 +76,7 @@ public class ContratacionesService : ServiceBase,IContratacionesService
             request.AddParameter("year", year);
             request.AddParameter("periodo", periodo);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<Totals>(request);
 
             if (response.IsSuccessStatusCode)
@@ -103,7 +103,7 @@ public class ContratacionesService : ServiceBase,IContratacionesService
             request.AddParameter("periodo", periodo);
             request.AddParameter("tipoGrafica", (int)tipoGrafica);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<List<Charts>>(request);
 
             if (response.IsSuccessStatusCode)
@@ -135,7 +135,7 @@ public class ContratacionesService : ServiceBase,IContratacionesService
             request.AddParameter("tipoDistribucion", tipoDistribucion);
             request.AddParameter("limit", limit);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<List<Charts>>(request);
 
             if (response.IsSuccessStatusCode)
@@ -161,7 +161,7 @@ public class ContratacionesService : ServiceBase,IContratacionesService
             request.AddParameter("year", year);
             request.AddParameter("periodo", periodo);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<List<Charts>>(request);
 
             if (response.IsSuccessStatusCode)
@@ -191,7 +191,7 @@ public class ContratacionesService : ServiceBase,IContratacionesService
             request.AddParameter("application/json", jsonString, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
             
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<SearchDetails>(request);
 
             if (response.IsSuccessStatusCode)
@@ -214,7 +214,7 @@ public class ContratacionesService : ServiceBase,IContratacionesService
             var request = new RestRequest("SearchResults/GetLicitacionById", Method.Get);
             request.AddParameter("id", id);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<ContractDetailsDto>(request);
 
             if (response.IsSuccessStatusCode)
@@ -236,7 +236,7 @@ public class ContratacionesService : ServiceBase,IContratacionesService
         {
             var request = new RestRequest("Dashboard/OpenDataDashboard", Method.Get);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<TotalsOpenData>(request);
 
             if (response.IsSuccessStatusCode)

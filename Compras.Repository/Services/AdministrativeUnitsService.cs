@@ -32,7 +32,7 @@ public class AdministrativeUnitsService : ServiceBase,IAdministrativeUnitsServic
             request.AddParameter("tipoDistribucion", (int)tipoDistribucion);
             request.AddParameter("limit", limit);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<List<Charts>>(request);
 
             if (response.IsSuccessStatusCode)
@@ -61,7 +61,7 @@ public class AdministrativeUnitsService : ServiceBase,IAdministrativeUnitsServic
             request.AddParameter("application/json", jsonString, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
             
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<SearchDetailsUnit>(request);
 
             if (response.IsSuccessStatusCode)
@@ -86,7 +86,7 @@ public class AdministrativeUnitsService : ServiceBase,IAdministrativeUnitsServic
             request.AddParameter("year", year);
             request.AddParameter("periodo", periodo);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<TotalsByAU>(request);
 
             if (response.IsSuccessStatusCode)
@@ -111,7 +111,7 @@ public class AdministrativeUnitsService : ServiceBase,IAdministrativeUnitsServic
             request.AddParameter("periodo", periodo);
             request.AddParameter("tipoGrafica", tipoGrafica);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<List<Charts>>(request);
 
             if (response.IsSuccessStatusCode)

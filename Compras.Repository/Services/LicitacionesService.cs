@@ -28,7 +28,7 @@ public class LicitacionesService : ServiceBase,ILicitacionesService
             request.AddParameter("year", year);
             request.AddParameter("periodo", periodo);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<TotalsLicitaciones>(request);
 
             if (response.IsSuccessStatusCode)
@@ -55,7 +55,7 @@ public class LicitacionesService : ServiceBase,ILicitacionesService
             request.AddParameter("application/json", jsonString, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
             
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<SearchLicitacion>(request);
 
             if (response.IsSuccessStatusCode)

@@ -31,7 +31,7 @@ public class SuppliersService : ServiceBase,ISuppliersService
             request.AddParameter("year", year);
             request.AddParameter("periodo", periodo);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<TotalBySupplierDetails>(request);
 
             if (response.IsSuccessStatusCode)
@@ -54,7 +54,7 @@ public class SuppliersService : ServiceBase,ISuppliersService
             request.AddParameter("year", year);
             request.AddParameter("periodo", periodo);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<TotalsBySuppliers>(request);
 
             if (response.IsSuccessStatusCode)
@@ -69,7 +69,7 @@ public class SuppliersService : ServiceBase,ISuppliersService
         return new TotalsBySuppliers();
     }
     
-    public async Task<SearchSuppliers> GetSearch(SearchFilter filter)
+    public async  Task<SearchSuppliers> GetSearch(SearchFilter filter)
     {
         try
         {
@@ -81,7 +81,7 @@ public class SuppliersService : ServiceBase,ISuppliersService
             request.AddParameter("application/json", jsonString, ParameterType.RequestBody);
             request.RequestFormat = DataFormat.Json;
             
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<SearchSuppliers>(request);
 
             if (response.IsSuccessStatusCode)
@@ -107,7 +107,7 @@ public class SuppliersService : ServiceBase,ISuppliersService
             request.AddParameter("periodo", periodo);
             request.AddParameter("tipoGrafica", tipoGrafica);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<List<Charts>>(request);
 
             if (response.IsSuccessStatusCode)

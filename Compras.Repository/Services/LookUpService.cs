@@ -30,7 +30,7 @@ public class LookUpService : ServiceBase,ILookUpService
             request.AddParameter("term", term);
             request.AddParameter("top", top);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<List<LookUp>>(request);
 
             if (response.IsSuccessStatusCode)
@@ -55,7 +55,7 @@ public class LookUpService : ServiceBase,ILookUpService
             request.AddParameter("term", term);
             request.AddParameter("top", top);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<List<LookUp>>(request);
 
             if (response.IsSuccessStatusCode)
@@ -80,7 +80,7 @@ public class LookUpService : ServiceBase,ILookUpService
             request.AddParameter("term", term);
             request.AddParameter("top", top);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<List<LookUp>>(request);
 
             if (response.IsSuccessStatusCode)
@@ -104,7 +104,7 @@ public class LookUpService : ServiceBase,ILookUpService
             var request = new RestRequest("LookUp/GetMontoMinAndMax", Method.Get);
             request.AddParameter("year", year);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<List<LookUp>>(request);
 
             if (response.IsSuccessStatusCode)
@@ -128,7 +128,7 @@ public class LookUpService : ServiceBase,ILookUpService
             var request = new RestRequest("LookUp/GetTotalProcedimientos", Method.Get);
             request.AddParameter("year", year);
 
-            request.Timeout = 5000;
+            request.Timeout = 10000;
             var response = await _client.ExecuteAsync<int>(request);
 
             if (response.IsSuccessStatusCode)
